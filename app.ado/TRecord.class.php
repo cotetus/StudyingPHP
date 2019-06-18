@@ -67,8 +67,98 @@ abstract class TRecord {
 		$classe = strtolower(get_class($this));
 		// devuelve el nombre de la clase - "Record"
 		return substr($classe, 0, -6);
+    }
+    
+    /**
+     * netodo fromArray()
+     * coloca los datos del objeto con un array 
+     */
+    public function fromArray($data) {
+        $this->data = $data;
+    }
+
+    /**
+     * metodo toArray()
+     * devuelve los datos del objeto como array
+     */
+    public function toArray() {
+        return $this->data;
+    }
+    
+    /**
+     * metodo store()
+     * almazena el objeto en la base de datos y devuelve
+     * el número de linhas afectadas por la instrucción SQL (cero o uno)
+     */
+    public function store() {
+        // verifica si tiene ID o si existe en la base de datos
+        if (empty($this->data['id']) or (!$this->load($this->id))) {
+            // incrementa el ID
+            $this->id = $this->getLast() +1;
+            // crea una instruccion de insert
+            $sql = new TSqlInsert;
+            $sql->setEntity($this->getEntity());
+            //recorre los datos del objeto
+            foreach ($$this->data as $key => $value) {
+                // pasa los datos del objeto para el SQL
+                $sql->setRowData($key, $this->$key);
+            }            
+        } else {
+            // instancia instruccion de UPDATE
+            $sql = new TSqlUpdate;
+            $sql->setEntity($this->getEntity());
+            // crea un criterio de seleccion basado en el ID
+            $criteria = new TCriteria;
+            $criteria->add(new TFliter('id','=', $this->id));
+			$sql->setCriteria($criteria);
+			// recorre los datos del objeto
+			foreach ($$this->data as $key => $value) {
+				//el ID no precisa ir en el UPDATE
+				if ($key !== 'id') {
+					// pasa los datos del objeto para el SQL
+					$sql->setRowData($key, $this->$key);
+				}
+			}
+		}
+		// obtiene transaccion activa
+		if ($conn = TTransaction::get()) {
+			// hace el log y ejecuta el SQL
+			TTransaction::log($sql->getInstruction());
+			result = $conn->exec($sql->getInstruction());
+			//devuelve el resultado
+			return $result;
+		} else {
+			// si no tiene transaccio, devuelve una exeption
+			throw new Exception("No hay transaccion activa");
+			
+		}
+
 	}
 	
+	/**
+	 * metodo getLast()
+	 * devuelve el ultimo ID
+	 */
+	private function getLast() {
+		// inicia transaccion
+		if ($conn = TTransaction::get()) {
+			$sql = new TSqlSelect;
+			$sql->addColumn('max(ID) as ID');
+			$sql->setEntity($this->getEntity());
+			// crea log y ejecuta instruccion SQL
+			TTransaction::log($sql->getInstructiom());
+			$resutl = $conn->Query($sql->getInstruction());
+			// devuelve los datos de la base de datos
+			$row = $result->fetch();
+			return $row[0];
+		} else {
+			// si no tiene transaccio, devuelve una exeption
+			throw new Exception("No hay transaccion activa");
+			
+		}
+		
+	}
+
 }
 
 ?>
