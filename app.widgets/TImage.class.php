@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php 
 
 /**
@@ -41,3 +42,6 @@ class TImage extends TElement{
 
 
 ?>
+=======
+TImage.class.php
+>>>>>>> 22a7ebfa231f4e2a4ead4a3117eab5d8e63acea7

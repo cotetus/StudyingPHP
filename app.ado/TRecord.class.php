@@ -134,6 +134,7 @@ abstract class TRecord {
 		}
 
 	}
+<<<<<<< HEAD
 
 	/**
 	 * metodo load()
@@ -210,6 +211,8 @@ abstract class TRecord {
 			
 		}
 	}
+=======
+>>>>>>> 22a7ebfa231f4e2a4ead4a3117eab5d8e63acea7
 	
 	/**
 	 * metodo getLast()

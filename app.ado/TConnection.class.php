@@ -7,7 +7,11 @@ final class TConnection
 {
 	/*
 	* metodo __construct()
+<<<<<<< HEAD
 	* no existurán instancias de TConnection, por eso estamos marcandolo como private
+=======
+	* no exusturán instancias de TConnection, por eso estamos marcandolo como private
+>>>>>>> 22a7ebfa231f4e2a4ead4a3117eab5d8e63acea7
 	*/
 	private function __construct() {}
 	/*

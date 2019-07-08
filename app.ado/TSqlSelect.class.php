@@ -22,7 +22,11 @@ final class TSqlSelect extends TSqlInstruction {
 		//arma la instruccion del SELECT
 		$this->sql = 'SELECT';
 		//arma string con los nombres de las columnas
+<<<<<<< HEAD
 		$this->sql .= implode(',', $this->columns);
+=======
+		$this->sql .=implode(',', $this->columns);
+>>>>>>> 22a7ebfa231f4e2a4ead4a3117eab5d8e63acea7
 		//agrega en la clausula FROM el nombre de la tabla
 		$this->sql .= 'FROM' .$this->entity;
 		//obtiene la clausula WHERE del objeto criteria.

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php 
 /*
  * classe TTransaction
@@ -91,3 +92,6 @@
  
 
 ?>
+=======
+TTransaction
+>>>>>>> 22a7ebfa231f4e2a4ead4a3117eab5d8e63acea7

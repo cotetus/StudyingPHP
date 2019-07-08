@@ -13,7 +13,11 @@ class TCriteria extends TExpression {
 	* @param $expression = expreción(objetoTExpression)
 	* @param $operator = operador lógico de comparación
 	*/
+<<<<<<< HEAD
 	public function add(TExpression $expressions, $operator = self::AND_OPERATOR) {
+=======
+	public function add(TExpression $expression, $operator = self::AND_OPERATOR) {
+>>>>>>> 22a7ebfa231f4e2a4ead4a3117eab5d8e63acea7
 		// la primera vez, no precisamos operador lógico para conectar
 		if (empty($this->expressions)) {
 			unset($operator);
